@@ -1,7 +1,15 @@
 from operator import ne
 import bs4
+import argparse
 
-text = open('index.html', 'r', encoding='utf16').read()
+parser = argparse.ArgumentParser()
+
+parser.add_argument("readFrom", help="File to read from")
+parser.add_argument("writeTo", help="File to write to")
+args = parser.parse_args()
+
+
+text = open(args.readFrom, 'r', encoding='utf16').read()
 
 soup = bs4.BeautifulSoup(text)
 
@@ -34,5 +42,5 @@ for ptag in soup.find_all('p'):
             elif (type(content) == bs4.element.NavigableString):
                 pass
 
-open("output1.html", "w", encoding='utf16').write(str(soup))
+open(args.writeTo, "w", encoding='utf16').write(str(soup))
 pass
